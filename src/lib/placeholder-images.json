@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "sound-wave-bg",
+      "description": "Abstract sound wave visualization",
+      "imageUrl": "https://images.unsplash.com/photo-1704741389627-5991d9953ba3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzb3VuZCUyMHdhdmV8ZW58MHx8fHwxNzcxMzAyMjM0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sound wave"
+    },
+    {
+      "id": "user-avatar-1",
+      "description": "Default avatar for leaderboard users",
+      "imageUrl": "https://images.unsplash.com/photo-1715615751025-e7ebe7f47eea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwcm9maWxlJTIwYXZhdGFyfGVufDB8fHx8MTc3MTIxMDQ2OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "profile avatar"
+    }
+  ]
 }
