@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
@@ -20,8 +21,10 @@ export function DBMeterDisplay({ onLevelUpdate, onMaxUpdate }: DBMeterDisplayPro
   const analyserRef = useRef<AnalyserNode | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const animationFrameRef = useRef<number | null>(null)
+  const isSensingRef = useRef(false)
 
   const stopRecording = () => {
+    isSensingRef.current = false
     if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
     if (streamRef.current) streamRef.current.getTracks().forEach(track => track.stop())
     if (audioContextRef.current) audioContextRef.current.close()
@@ -36,6 +39,7 @@ export function DBMeterDisplay({ onLevelUpdate, onMaxUpdate }: DBMeterDisplayPro
       streamRef.current = stream
       
       const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+      await audioContext.resume()
       audioContextRef.current = audioContext
       
       const analyser = audioContext.createAnalyser()
@@ -46,19 +50,20 @@ export function DBMeterDisplay({ onLevelUpdate, onMaxUpdate }: DBMeterDisplayPro
       source.connect(analyser)
       
       const dataArray = new Uint8Array(analyser.frequencyBinCount)
+      isSensingRef.current = true
       
       const updateLevel = () => {
-        if (!isRecording) return;
+        if (!isSensingRef.current || !analyserRef.current) return;
         
-        analyser.getByteFrequencyData(dataArray)
+        analyserRef.current.getByteFrequencyData(dataArray)
         let sum = 0
         for (let i = 0; i < dataArray.length; i++) {
           sum += dataArray[i]
         }
         
         const average = sum / dataArray.length
-        // Simple heuristic for dB mapping (clamped for UI)
-        const db = Math.min(130, Math.max(0, Math.round(average * 1.5)))
+        // Calibrated heuristic for dB mapping (0-130 range)
+        const db = Math.min(130, Math.max(0, Math.round(average * 1.6)))
         
         setCurrentLevel(db)
         onLevelUpdate(db)
@@ -75,20 +80,17 @@ export function DBMeterDisplay({ onLevelUpdate, onMaxUpdate }: DBMeterDisplayPro
       setError(null)
       updateLevel()
     } catch (err: any) {
-      console.error(err)
       setError("Microphone access denied or unavailable.")
     }
   }
 
   useEffect(() => {
-    return () => stopRecording()
+    return () => {
+      isSensingRef.current = false
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
+      if (streamRef.current) streamRef.current.getTracks().forEach(track => track.stop())
+    }
   }, [])
-
-  const getMeterColor = (level: number) => {
-    if (level < 50) return 'bg-secondary'
-    if (level < 90) return 'bg-primary'
-    return 'bg-destructive'
-  }
 
   return (
     <Card className="bg-card/50 backdrop-blur-sm border-primary/20 shadow-[0_0_20px_rgba(57,255,20,0.1)]">
