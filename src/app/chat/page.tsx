@@ -2,12 +2,13 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Zap, Send, Loader2, ArrowLeft, Bot, User, Sparkles } from 'lucide-react'
+import { Send, Loader2, ArrowLeft, Bot, User, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { chatSoundCatharsis } from '@/ai/flows/sound-catharsis-chat'
+import { Logo } from '@/components/logo'
 
 interface Message {
   role: 'user' | 'model'
@@ -51,7 +52,7 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col h-screen max-h-screen">
-      <header className="border-b border-border/40 bg-background/60 backdrop-blur-md p-4">
+      <header className="border-b border-border/40 bg-background/60 backdrop-blur-md p-4 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/">
@@ -59,26 +60,17 @@ export default function ChatPage() {
                 <ArrowLeft className="h-5 w-5" />
               </Button>
             </Link>
-            <div className="flex items-center gap-2">
-              <Bot className="h-6 w-6 text-secondary" />
-              <h1 className="text-lg font-black italic uppercase tracking-tighter">
-                AI <span className="text-secondary glow-accent">ASSISTANT</span>
-              </h1>
-            </div>
+            <Logo size="sm" />
           </div>
           <div className="hidden md:flex items-center gap-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             <Sparkles className="h-3 w-3 text-secondary animate-pulse" />
-            Expert Knowledge Core Active
+            Knowledge Core Active
           </div>
         </div>
       </header>
 
       <main className="flex-1 overflow-hidden p-4 md:p-8 flex items-center justify-center">
-        <Card className="w-full max-w-4xl h-full flex flex-col bg-card/40 border-secondary/20 backdrop-blur-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-            <Zap className="h-64 w-64 text-secondary" />
-          </div>
-          
+        <Card className="w-full max-w-4xl h-full flex flex-col bg-card/40 border-secondary/20 backdrop-blur-sm relative overflow-hidden shadow-[0_0_30px_rgba(125,249,255,0.05)]">
           <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             <ScrollArea className="flex-1 p-6" ref={scrollRef}>
               <div className="space-y-6">

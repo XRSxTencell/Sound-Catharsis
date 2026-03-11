@@ -7,7 +7,6 @@ import { SoundGraph } from '@/components/sound-graph'
 import { Leaderboard } from '@/components/leaderboard'
 import { NoiseAnalysis } from '@/components/noise-analysis'
 import { 
-  Zap, 
   Settings, 
   User, 
   History,
@@ -15,6 +14,7 @@ import {
 } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo'
 
 export default function MeterPage() {
   const [history, setHistory] = useState<{ time: string; level: number }[]>([])
@@ -42,14 +42,7 @@ export default function MeterPage() {
                 <ArrowLeft className="h-5 w-5" />
               </Button>
             </Link>
-            <div className="flex items-center gap-2">
-              <div className="bg-primary rounded-md p-1">
-                <Zap className="h-5 w-5 text-black" fill="currentColor" />
-              </div>
-              <h1 className="text-lg font-black tracking-tighter text-foreground italic hidden md:block">
-                SOUND<span className="text-primary">CATHARSIS</span>
-              </h1>
-            </div>
+            <Logo size="sm" />
           </div>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-secondary">

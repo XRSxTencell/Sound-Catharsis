@@ -2,23 +2,27 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Zap, Mic, MessageSquare, TrendingUp, ShieldCheck } from 'lucide-react'
+import { Mic, MessageSquare, TrendingUp, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { Logo } from '@/components/logo'
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <main className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 py-20 text-center space-y-12">
-        <div className="space-y-4">
+        <div className="space-y-8 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold tracking-widest uppercase animate-pulse">
-            <Zap className="h-3 w-3" />
-            System Online: v1.0.4-BETA
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            SYSTEM ONLINE: v1.0.4-BETA
           </div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter italic text-foreground">
-            SOUND<span className="text-primary glow-primary">CATHARSIS</span>
-          </h1>
+          
+          <Logo size="xl" className="mb-4" />
+          
           <p className="max-w-2xl mx-auto text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
             Measure your intensity. Understand your release. Join the global movement of acoustic expression.
           </p>
@@ -76,7 +80,12 @@ export default function LandingPage() {
 
       <footer className="border-t border-border/40 py-8 bg-card/30">
         <div className="container mx-auto px-4 flex justify-between items-center text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-          <span>&copy; 2024 SOUNDCATHARSIS LABS</span>
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-4 rounded bg-primary/20 flex items-center justify-center">
+              <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+            </div>
+            <span>&copy; 2024 SOUNDCATHARSIS LABS</span>
+          </div>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-primary transition-colors">Terms</Link>
             <Link href="#" className="hover:text-primary transition-colors">Privacy</Link>
