@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { DBMeterDisplay } from '@/components/db-meter-display'
 import { SoundGraph } from '@/components/sound-graph'
-import { Leaderboard } from '@/components/leaderboard'
+import { AcousticInsights } from '@/components/acoustic-insights'
 import { NoiseAnalysis } from '@/components/noise-analysis'
 import { 
   Settings, 
@@ -78,17 +78,17 @@ export default function MeterPage() {
           </div>
 
           <div className="lg:col-span-4 space-y-8">
-            <Tabs defaultValue="leaderboard" className="w-full">
+            <Tabs defaultValue="insights" className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-muted/20">
-                <TabsTrigger value="leaderboard" className="data-[state=active]:bg-card data-[state=active]:text-secondary">
-                  LEADERBOARD
+                <TabsTrigger value="insights" className="data-[state=active]:bg-card data-[state=active]:text-secondary">
+                  INSIGHTS
                 </TabsTrigger>
                 <TabsTrigger value="history" className="data-[state=active]:bg-card data-[state=active]:text-primary">
                   SESSION LOG
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="leaderboard" className="mt-4">
-                <Leaderboard />
+              <TabsContent value="insights" className="mt-4">
+                <AcousticInsights currentPeak={personalBest} />
               </TabsContent>
               <TabsContent value="history" className="mt-4">
                 <div className="bg-card/50 border border-muted rounded-xl p-6 min-h-[400px]">
